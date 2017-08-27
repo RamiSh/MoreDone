@@ -11,7 +11,8 @@ namespace MoreDone.Models
         ImportantUrgent = 0,
         ImportantNonurgent = 1,
         UnimportantUrgent = 2,
-        UnimportantNonurgent = 3
+        UnimportantNonurgent = 3,
+        Unsorted = 4
     }
 
     [Table("task")]

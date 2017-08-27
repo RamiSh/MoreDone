@@ -5,7 +5,7 @@ import {
   DataListModule
 } from 'primeng/primeng';
 
-import { Task } from '../models/task';
+import { Task, Category } from '../models/task';
 
 import { ApiService } from '../services/api.service';
 import { TaskService } from '../services/task.service';
@@ -48,9 +48,13 @@ export class MainComponent implements OnInit {
 
   AddNewTask() {
     if (this.newTaskTitle != null) {
-      this.newTask = new Task(this.newTaskTitle);
-      this.unsortedTasks.push(this.newTask);
-      this.newTaskTitle = null;
+      this.newTask = new Task(this.newTaskTitle, Category.Unsorted);
+      this.taskService.addTask(this.newTask).subscribe(result => {
+        if (typeof result === 'number') {
+          this.unsortedTasks.push(this.newTask);
+          this.newTaskTitle = null;
+        }
+      })
     }
   }
 

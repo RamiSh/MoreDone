@@ -25,7 +25,6 @@ import {
   imports: [
     BrowserModule, FormsModule,
     AppRoutingModule,
-    //primeng modules
     DataListModule, ButtonModule, InputTextModule, DragDropModule,
     HttpModule
   ],

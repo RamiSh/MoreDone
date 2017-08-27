@@ -16,11 +16,13 @@ export class TaskService {
         return tasks;
     }
 
-    addTask(newTask: Task): void {
-        const response = this.apiService.post(`${this.path}`, JSON.stringify(newTask));
+    addTask(newTask: Task): Observable<number> {
+        const newTaskId = this.apiService.put(`${this.path}`, JSON.stringify(newTask));
+        return newTaskId;
     }
 
-    updateTask(updatedTask: Task): void {
+    updateTask(updatedTask: Task): Observable<boolean> {
         const response = this.apiService.post(`${this.path}`, JSON.stringify(updatedTask));
+        return response;
     }
 }
