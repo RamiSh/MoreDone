@@ -7,11 +7,15 @@ import {
 
 import { Task } from '../models/task';
 
+import { ApiService } from '../services/api.service';
+import { TaskService } from '../services/task.service';
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
+
 export class MainComponent implements OnInit {
   unsortedTasks: Task[] = [];
   importantUrgentItems: Task[] = [];
@@ -26,17 +30,20 @@ export class MainComponent implements OnInit {
   draggedFromList: Task[] = [];
 
 
-  constructor() {
-    this.unsortedTasks.push(new Task('title1'));
-    this.unsortedTasks.push(new Task('title2'));
-    this.unsortedTasks.push(new Task('title3'));
-    this.unsortedTasks.push(new Task('title4'));
-    this.unsortedTasks.push(new Task('title5'));
-    this.unsortedTasks.push(new Task('title6'));
-    this.unsortedTasks.push(new Task('title7'));
+  constructor(private taskService: TaskService) {
+    // this.unsortedTasks.push(new Task('title1'));
+    // this.unsortedTasks.push(new Task('title2'));
+    // this.unsortedTasks.push(new Task('title3'));
+    // this.unsortedTasks.push(new Task('title4'));
+    // this.unsortedTasks.push(new Task('title5'));
+    // this.unsortedTasks.push(new Task('title6'));
+    // this.unsortedTasks.push(new Task('title7'));
   }
 
   ngOnInit() {
+    this.taskService.getTasks().subscribe(tasks => {
+      this.unsortedTasks = tasks;
+    });
   }
 
   AddNewTask() {

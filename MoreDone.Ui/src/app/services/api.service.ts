@@ -66,6 +66,20 @@ export class ApiService {
             .map(this.getJson);
     }
 
+    put(path: string, formData: any): Observable<any> {
+        this.buildSecuredHeader();
+        const url = `${this.apiEndpoint}${path}`;
+        return this.http.put(url, formData, { headers: this.headers })
+            .map(this.checkForError)
+            .catch(
+            err => {
+
+                return Observable.throw(err);
+            }
+            )
+            .map(this.getJson);
+    }
+
     delete(path: string): Observable<any> {
         this.buildSecuredHeader();
         const url = `${this.apiEndpoint}${path}`;

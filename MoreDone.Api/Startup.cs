@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Web.Http;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Owin;
 using MoreDone;
 
@@ -16,6 +17,7 @@ namespace MoreDone
 
         public void Configuration(IAppBuilder app)
         {
+            app.UseCors(CorsOptions.AllowAll);
 
             HttpConfiguration config = new HttpConfiguration();
 
