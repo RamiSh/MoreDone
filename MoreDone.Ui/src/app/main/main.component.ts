@@ -18,10 +18,10 @@ import { TaskService } from '../services/task.service';
 
 export class MainComponent implements OnInit {
   unsortedTasks: Task[] = [];
-  importantUrgentItems: Task[] = [];
-  importantNotUrgentItems: Task[] = [];
-  notImportantUrgentItems: Task[] = [];
-  notImportantNotUrgentItems: Task[] = [];
+  importantUrgentTasks: Task[] = [];
+  importantNonurgentTasks: Task[] = [];
+  unimportantUrgentTasks: Task[] = [];
+  unimportantNonurgentTasks: Task[] = [];
 
   newTaskTitle: string = null;
   newTask: Task = null;
@@ -29,20 +29,20 @@ export class MainComponent implements OnInit {
 
   draggedFromList: Task[] = [];
 
-
   constructor(private taskService: TaskService) {
-    // this.unsortedTasks.push(new Task('title1'));
-    // this.unsortedTasks.push(new Task('title2'));
-    // this.unsortedTasks.push(new Task('title3'));
-    // this.unsortedTasks.push(new Task('title4'));
-    // this.unsortedTasks.push(new Task('title5'));
-    // this.unsortedTasks.push(new Task('title6'));
-    // this.unsortedTasks.push(new Task('title7'));
   }
 
   ngOnInit() {
+    this.loadTasks();
+  }
+
+  loadTasks(): void {
     this.taskService.getTasks().subscribe(tasks => {
-      this.unsortedTasks = tasks;
+      this.unsortedTasks = tasks.filter(task => task.Category === Category.Unsorted);
+      this.importantUrgentTasks = tasks.filter(task => task.Category === Category.ImportantUrgent);
+      this.importantNonurgentTasks = tasks.filter(task => task.Category === Category.ImportantNonurgent);
+      this.unimportantUrgentTasks = tasks.filter(task => task.Category === Category.UnimportantUrgent);
+      this.unimportantNonurgentTasks = tasks.filter(task => task.Category === Category.UnimportantNonurgent);
     });
   }
 
@@ -59,8 +59,6 @@ export class MainComponent implements OnInit {
   }
 
   newTaskTextChanged(event: any) {
-    // this.newTask = new task(event.target.value);
-    console.log(event);
     if (event.key === 'Enter') {
       this.AddNewTask();
     }
@@ -71,33 +69,64 @@ export class MainComponent implements OnInit {
     if (event.currentTarget.id === 'unorderedDragList') {
       this.draggedFromList = this.unsortedTasks;
     } else if (event.currentTarget.id === 'importantUrgentDragList') {
-      this.draggedFromList = this.importantUrgentItems;
-    } else if (event.currentTarget.id === 'importantNotUrgentDragList') {
-      this.draggedFromList = this.importantNotUrgentItems;
-    } else if (event.currentTarget.id === 'notImportantUrgentDragList') {
-      this.draggedFromList = this.notImportantUrgentItems;
-    } else if (event.currentTarget.id === 'notImportantNotUrgentDragList') {
-      this.draggedFromList = this.notImportantNotUrgentItems;
+      this.draggedFromList = this.importantUrgentTasks;
+    } else if (event.currentTarget.id === 'importantNonurgentDragList') {
+      this.draggedFromList = this.importantNonurgentTasks;
+    } else if (event.currentTarget.id === 'unimportantUrgentDragList') {
+      this.draggedFromList = this.unimportantUrgentTasks;
+    } else if (event.currentTarget.id === 'unimportantNonurgentDragList') {
+      this.draggedFromList = this.unimportantNonurgentTasks;
     }
   }
 
   dragEnded(event: any) {
-    this.draggedTask = null;
   }
 
   dropTask(event) {
     if (event.currentTarget.id === 'unorderedList') {
-      this.unsortedTasks.push(this.draggedTask);
-    } else if (event.currentTarget.id === 'notImportantNotUrgentList') {
-      this.notImportantNotUrgentItems.push(this.draggedTask);
-    } else if (event.currentTarget.id === 'notImportantUrgentList') {
-      this.notImportantUrgentItems.push(this.draggedTask);
-    } else if (event.currentTarget.id === 'importantNotUrgentList') {
-      this.importantNotUrgentItems.push(this.draggedTask);
+      this.draggedTask.Category = Category.Unsorted;
+      this.taskService.updateTask(this.draggedTask).subscribe(result => {
+        if (result === true) {
+          this.unsortedTasks.push(this.draggedTask);
+          this.clearDraggedTask();
+        }
+      })
+    } else if (event.currentTarget.id === 'unimportantNonurgentList') {
+      this.draggedTask.Category = Category.UnimportantNonurgent;
+      this.taskService.updateTask(this.draggedTask).subscribe(result => {
+        if (result === true) {
+          this.unimportantNonurgentTasks.push(this.draggedTask);
+          this.clearDraggedTask();
+        }
+      })
+    } else if (event.currentTarget.id === 'unimportantUrgentList') {
+      this.draggedTask.Category = Category.UnimportantUrgent;
+      this.taskService.updateTask(this.draggedTask).subscribe(result => {
+        if (result === true) {
+          this.unimportantUrgentTasks.push(this.draggedTask);
+          this.clearDraggedTask();
+        }
+      })
+    } else if (event.currentTarget.id === 'importantNonurgentList') {
+      this.draggedTask.Category = Category.ImportantNonurgent;
+      this.taskService.updateTask(this.draggedTask).subscribe(result => {
+        if (result === true) {
+          this.importantNonurgentTasks.push(this.draggedTask);
+          this.clearDraggedTask();
+        }
+      })
     } else if (event.currentTarget.id === 'importantUrgentList') {
-      this.importantUrgentItems.push(this.draggedTask);
+      this.draggedTask.Category = Category.ImportantUrgent;
+      this.taskService.updateTask(this.draggedTask).subscribe(result => {
+        if (result === true) {
+          this.importantUrgentTasks.push(this.draggedTask);
+          this.clearDraggedTask();
+        }
+      })
     }
+  }
 
+  clearDraggedTask(): void {
     const indexOfDraggedTask = this.draggedFromList.indexOf(this.draggedTask, 0);
     if (indexOfDraggedTask > -1) {
       this.draggedFromList.splice(indexOfDraggedTask, 1);

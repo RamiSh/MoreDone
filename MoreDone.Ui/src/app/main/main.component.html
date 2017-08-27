@@ -7,10 +7,11 @@
   <div class="ui-g-12">
     <div class="ui-g-12">
       <div pDroppable="tasks" (onDrop)="dropTask($event)" id="unorderedList">
-        <p-dataList [value]="unsortedTasks" emptyMessage="No items yet, let's add more!">
+        <p-dataList [value]="unsortedTasks" emptyMessage="Don't sit idel!">
           <p-header>Unsorted things to work on!</p-header>
-          <ng-template let-task pTemplate="item" >
-            <div pDraggable="tasks" dragEffect="copyMove" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="unorderedDragList" class="task">
+          <ng-template let-task pTemplate="item">
+            <div pDraggable="tasks" dragEffect="copyMove" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="unorderedDragList"
+              class="task black-border">
               {{task.Title}}
             </div>
           </ng-template>
@@ -21,9 +22,11 @@
   <div class="ui-g-12">
     <div class="ui-g-6">
       <div pDroppable="tasks" (onDrop)="dropTask($event)" id="importantUrgentList">
-        <p-dataList [value]="importantUrgentItems" emptyMessage="No items yet, let's add more!">
+        <p-dataList [value]="importantUrgentTasks" emptyMessage="When empty I relax!">
+          <p-header>important & urgent</p-header>
           <ng-template let-task pTemplate="item">
-            <div pDraggable="tasks" [dragEffect]="move" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="importantUrgentDragList">
+            <div pDraggable="tasks" [dragEffect]="move" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="importantUrgentDragList"
+              class="task yellow-border">
               {{task.Title}}
             </div>
           </ng-template>
@@ -31,10 +34,12 @@
       </div>
     </div>
     <div class="ui-g-6">
-      <div pDroppable="tasks" (onDrop)="dropTask($event)" id="importantNotUrgentList">
-        <p-dataList [value]="importantNotUrgentItems" emptyMessage="No items yet, let's add more!">
+      <div pDroppable="tasks" (onDrop)="dropTask($event)" id="importantNonurgentList">
+        <p-dataList [value]="importantNonurgentTasks" emptyMessage="No tasks in this quadrant yet, let's add some!">
+          <p-header>important & nonurgent</p-header>
           <ng-template let-task pTemplate="item">
-            <div pDraggable="tasks" [dragEffect]="move" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="importantNotUrgentDragList">
+            <div pDraggable="tasks" [dragEffect]="move" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="importantNonurgentDragList"
+              class="task green-border">
               {{task.Title}}
             </div>
           </ng-template>
@@ -44,10 +49,12 @@
   </div>
   <div class="ui-g-12">
     <div class="ui-g-6">
-      <div pDroppable="tasks" (onDrop)="dropTask($event)" id="notImportantUrgentList">
-        <p-dataList [value]="notImportantUrgentItems" emptyMessage="No items yet, let's add more!">
+      <div pDroppable="tasks" (onDrop)="dropTask($event)" id="unimportantUrgentList">
+        <p-dataList [value]="unimportantUrgentTasks" emptyMessage="No tasks in this quadrant yet, let's add some!">
+          <p-header>unimportant & urgent</p-header>
           <ng-template let-task pTemplate="item">
-            <div pDraggable="tasks" [dragEffect]="move" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="notImportantUrgentDragList">
+            <div pDraggable="tasks" [dragEffect]="move" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="unimportantUrgentDragList"
+              class="task orange-border">
               {{task.Title}}
             </div>
           </ng-template>
@@ -55,10 +62,12 @@
       </div>
     </div>
     <div class="ui-g-6">
-      <div pDroppable="tasks" (onDrop)="dropTask($event)" id="notImportantNotUrgentList">
-        <p-dataList [value]="notImportantNotUrgentItems" emptyMessage="No items yet, let's add more!">
+      <div pDroppable="tasks" (onDrop)="dropTask($event)" id="unimportantNonurgentList">
+        <p-dataList [value]="unimportantNonurgentTasks" emptyMessage="Perfect, keep it clean!">
+          <p-header>unimportant & nonurgent</p-header>
           <ng-template let-task pTemplate="item">
-            <div pDraggable="tasks" [dragEffect]="move" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="notImportantNotUrgentDragList">
+            <div pDraggable="tasks" [dragEffect]="move" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="unimportantNonurgentDragList"
+              class="task red-border">
               {{task.Title}}
             </div>
           </ng-template>

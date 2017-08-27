@@ -4,9 +4,11 @@ export class Task {
 }
 
 export enum Category {
-    ImportantUrgent = 0,
-    ImportantNonurgent = 1,
-    UnimportantUrgent = 2,
-    UnimportantNonurgent = 3,
-    Unsorted = 4
+    ImportantUrgent = 1,
+    ImportantNonurgent = 2,
+    UnimportantUrgent = 3,
+    UnimportantNonurgent = 4,
+    Unsorted = 5,
+    Deleted = 6,
+    Completed = 7
 }
