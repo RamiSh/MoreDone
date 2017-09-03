@@ -1,4 +1,4 @@
-<div class="ui-g">
+﻿<div class="ui-g">
   <div class="ui-g-12"><label> What do you want to do!</label>
 
     <input type="text" pInputText [(ngModel)]="newTaskTitle" (keyup)="newTaskTextChanged($event)" style="width:320px;">
@@ -7,7 +7,7 @@
   <div class="ui-g-12">
     <div class="ui-g-12">
       <div pDroppable="tasks" (onDrop)="dropTask($event)" id="unorderedList">
-        <p-dataList [value]="unsortedTasks" emptyMessage="Don't sit idel!">
+        <p-dataList [value]="unsortedTasks" emptyMessage="Don't sit idle!">
           <p-header>Unsorted things to work on!</p-header>
           <ng-template let-task pTemplate="item">
             <div pDraggable="tasks" dragEffect="copyMove" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="unorderedDragList"
@@ -35,7 +35,7 @@
     </div>
     <div class="ui-g-6">
       <div pDroppable="tasks" (onDrop)="dropTask($event)" id="importantNonurgentList">
-        <p-dataList [value]="importantNonurgentTasks" emptyMessage="No tasks in this quadrant yet, let's add some!">
+        <p-dataList [value]="importantNonurgentTasks" emptyMessage="Don't you care about future?">
           <p-header>important & nonurgent</p-header>
           <ng-template let-task pTemplate="item">
             <div pDraggable="tasks" [dragEffect]="move" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="importantNonurgentDragList"
@@ -50,7 +50,7 @@
   <div class="ui-g-12">
     <div class="ui-g-6">
       <div pDroppable="tasks" (onDrop)="dropTask($event)" id="unimportantUrgentList">
-        <p-dataList [value]="unimportantUrgentTasks" emptyMessage="No tasks in this quadrant yet, let's add some!">
+        <p-dataList [value]="unimportantUrgentTasks" emptyMessage="I try my best to avoid this">
           <p-header>unimportant & urgent</p-header>
           <ng-template let-task pTemplate="item">
             <div pDraggable="tasks" [dragEffect]="move" (onDragStart)="dragStarted($event,task)" (onDragEnd)="dragEnded($event)" id="unimportantUrgentDragList"
